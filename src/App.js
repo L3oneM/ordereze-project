@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import { Switch, Route } from 'react-router-dom';
 
-function App() {
+import { getAll } from './services/pages';
+
+import Header from './components/Header/Header';
+import MainPage from './pages/MainPage/MainPage';
+import CreatePage from './pages/CreatePage/CreatePage';
+
+const App = () => {
+  const [pages, setPages] = useState([]);
+
+  useEffect(() => {
+    getAll().then(pages => {
+      setPages(pages);
+    });
+  }, []);
+
+  console.log(pages);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header />
+      <Switch>
+        <Route exact path='/' render={() => <MainPage pages={pages} />} />
+        <Route exact path='/newPage' component={CreatePage} />
+      </Switch>
     </div>
   );
-}
+};
 
 export default App;
