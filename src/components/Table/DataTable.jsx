@@ -5,36 +5,45 @@ import TableRow from './subComponents/TableRow';
 
 import { setPages } from '../../redux/pages/pages.actions';
 import { getAllPages } from '../../services/pages';
+import { pagesToShowWithPagination, pagesToShow } from '../../services/filters';
 
 import './dataTable.styles.scss';
 
-const DataTable = ({ pages, setPages }) => {
+const DataTable = ({
+  pages,
+  setPages,
+  filters: { search, sortBy, direction, pagesPerPage, currentPage }
+}) => {
   useEffect(() => {
     getAllPages().then(pages => {
       return setPages(pages);
     });
   }, []);
 
-  console.log(pages);
+  const indexOfLastPage = currentPage * pagesPerPage;
+  const indexOfFirstPage = indexOfLastPage - pagesPerPage;
 
   return !pages.length === 0 ? (
     <h1>Loading...</h1>
   ) : (
     <table className='main-table'>
-      <caption className='tb-caption'>My Pages</caption>
       <thead>
         <tr className='tb-row'>
           <th scope='col'>Title</th>
           <th scope='col'>Description</th>
           <th scope='col'>Type</th>
-          <th scope='col'>Is Active</th>
-          <th scope='col'>Published On</th>
+          <th scope='col'>Active</th>
+          <th scope='col'>Published</th>
           <th scope='col'>Edit</th>
           <th scope='col'>Delete</th>
         </tr>
       </thead>
       <tbody>
-        {pages.map(page => (
+        {pagesToShowWithPagination(
+          pagesToShow(pages, search, sortBy, direction),
+          indexOfFirstPage,
+          indexOfLastPage
+        ).map(page => (
           <TableRow key={page.id} page={page}></TableRow>
         ))}
       </tbody>
@@ -43,7 +52,8 @@ const DataTable = ({ pages, setPages }) => {
 };
 
 const mapStateToProps = state => ({
-  pages: state.pages
+  pages: state.pages,
+  filters: state.filters
 });
 
 const mapDispatchToProps = dispatch => ({

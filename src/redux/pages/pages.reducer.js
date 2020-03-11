@@ -1,7 +1,5 @@
 import PagesActionTypes from './pages.types';
 
-import { EditPageState } from './page.utils';
-
 const INITIAL_STATE = [];
 
 const pagesReducer = (state = INITIAL_STATE, action) => {
