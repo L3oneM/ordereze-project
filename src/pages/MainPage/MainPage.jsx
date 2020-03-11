@@ -1,13 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import MyTable from '../../components/Table/DataTable';
 
 import './mainPage.styles.scss';
 
-const MainPage = ({ pages }) => {
+const MainPage = () => {
   return (
     <div className='main-page'>
-      <MyTable pages={pages}></MyTable>
+      <Link className='addButton' to='/newPage'>
+        Add Page
+      </Link>
+      <MyTable></MyTable>
     </div>
   );
 };

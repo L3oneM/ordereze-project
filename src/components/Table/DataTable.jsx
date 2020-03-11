@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 
 import TableRow from './subComponents/TableRow';
 
+import { setPages } from '../../redux/pages/pages.actions';
+import { getAllPages } from '../../services/pages';
+
 import './dataTable.styles.scss';
 
-const DataTable = ({ pages }) => {
-  return !pages ? (
+const DataTable = ({ pages, setPages }) => {
+  useEffect(() => {
+    getAllPages().then(pages => {
+      return setPages(pages);
+    });
+  }, []);
+
+  console.log(pages);
+
+  return !pages.length === 0 ? (
     <h1>Loading...</h1>
   ) : (
     <table className='main-table'>
@@ -30,4 +42,12 @@ const DataTable = ({ pages }) => {
   );
 };
 
-export default DataTable;
+const mapStateToProps = state => ({
+  pages: state.pages
+});
+
+const mapDispatchToProps = dispatch => ({
+  setPages: pages => dispatch(setPages(pages))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DataTable);

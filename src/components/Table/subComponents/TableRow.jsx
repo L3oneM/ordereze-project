@@ -1,12 +1,21 @@
 import React from 'react';
-import './tableRow.styles.scss';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 
+import { deletePage } from '../../../redux/pages/pages.actions';
+import { removePage } from '../../../services/pages';
+
+import './tableRow.styles.scss';
+
 const TableRow = ({
-  page: { id, title, description, type, isActive, publishedOn }
+  page: { id, title, description, type, isActive, publishedOn },
+  deletePage
 }) => {
   const handleDelete = () => {
-    console.log(id);
+    removePage(id).then(page => {
+      deletePage(page.id);
+    });
   };
 
   const date = moment(publishedOn).format('YYYY MM DD');
@@ -21,7 +30,14 @@ const TableRow = ({
       <td data-label='Is Active'>{isActive ? 'Yes' : 'No'}</td>
       <td data-label='Published On'>{date}</td>
       <td data-label='Edit'>
-        <i className='fas fa-edit'></i>
+        <Link
+          to={{
+            pathname: '/editPage',
+            pageId: id
+          }}
+        >
+          <i className='fas fa-edit'></i>
+        </Link>
       </td>
       <td data-label='Delete' onClick={handleDelete}>
         <i className='fas fa-trash-alt'></i>
@@ -30,4 +46,8 @@ const TableRow = ({
   );
 };
 
-export default TableRow;
+const mapDispatchToProps = dispatch => ({
+  deletePage: pageId => dispatch(deletePage(pageId))
+});
+
+export default connect(null, mapDispatchToProps)(TableRow);
