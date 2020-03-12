@@ -49,7 +49,7 @@ const Pagination = ({
 };
 
 const mapStateToProps = state => ({
-  totalPages: state.pages.length,
+  totalPages: state.pagesState.pages.length,
   pagesPerPage: state.filters.pagesPerPage,
   currentPage: state.filters.currentPage
 });

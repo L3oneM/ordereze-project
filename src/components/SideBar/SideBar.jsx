@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 
+import NavItem from './subComponent/NavItem';
+import { navItems } from './subComponent/navItemsData';
+
 import './sideBar.styles.scss';
-import { Link } from 'react-router-dom';
 
 const SideBar = () => {
   const [isOpen, setOpen] = useState(false);
@@ -23,18 +25,16 @@ const SideBar = () => {
           </span>
         </button>
       </div>
-      <Link to='/' className='nav-btn nav-btn-option'>
-        <i className='fas fa-home fa-2x'></i>
-        <p className={`${isOpen ? 'fadeIn' : 'fadeOut'} animated`}>Home</p>
-      </Link>
-      <Link to='/' className='nav-btn nav-btn-option'>
-        <i className='fas fa-pager fa-2x'></i>
-        <p className={`${isOpen ? 'fadeIn' : 'fadeOut'} animated`}>Pages</p>
-      </Link>
-      <Link to='/' className='nav-btn nav-btn-option'>
-        <i className='fas fa-cogs fa-2x'></i>
-        <p className={`${isOpen ? 'fadeIn' : 'fadeOut'} animated`}>Settings</p>
-      </Link>
+      {navItems.map(({ icon, text, link, id }) => (
+        <NavItem
+          key={id}
+          icon={icon}
+          text={text}
+          link={link}
+          isOpen={isOpen}
+          handleMenuClick={handleMenuClick}
+        />
+      ))}
     </div>
   );
 };

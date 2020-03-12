@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import MainForm from '../../components/MainForm/MainForm';
 
 import { getPage } from '../../services/pages';
+import { setOnePage } from '../../redux/pages/pages.actions';
 
 import './editPage.styles.scss';
 
-const EditPage = ({ location: { pageId } }) => {
-  const [page, setPage] = useState({});
-
+const EditPage = ({ location: { pageId }, setOnePage, page }) => {
   useEffect(() => {
-    getPage(pageId).then(page => setPage(page));
+    getPage(pageId).then(page => setOnePage(page));
   }, []);
 
   return (
@@ -21,6 +20,12 @@ const EditPage = ({ location: { pageId } }) => {
   );
 };
 
-const mapDispatchToProps = {};
+const mapStateToProps = state => ({
+  page: state.pagesState.page
+});
 
-export default connect(null, mapDispatchToProps)(EditPage);
+const mapDispatchToProps = dispatch => ({
+  setOnePage: page => dispatch(setOnePage(page))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditPage);

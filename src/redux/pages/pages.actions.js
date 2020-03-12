@@ -14,3 +14,8 @@ export const addNewPage = newPage => ({
   type: PagesActionTypes.ADD_PAGE,
   payload: newPage
 });
+
+export const setOnePage = page => ({
+  type: PagesActionTypes.GET_ONE_PAGE,
+  payload: page
+});

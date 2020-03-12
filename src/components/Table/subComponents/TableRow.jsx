@@ -13,9 +13,11 @@ const TableRow = ({
   deletePage
 }) => {
   const handleDelete = () => {
-    removePage(id).then(page => {
-      deletePage(page.id);
-    });
+    removePage(id)
+      .then(page => {
+        deletePage(page.id);
+      })
+      .catch(error => console.log(error));
   };
 
   const date = moment(publishedOn).format('DD MM YYYY');
@@ -39,7 +41,7 @@ const TableRow = ({
         )}
       </td>
       <td data-label='Published On'>{date}</td>
-      <td data-label='Settings' onClick={handleDelete}>
+      <td data-label='Settings'>
         <Link
           className='settings-item'
           to={{
@@ -49,7 +51,10 @@ const TableRow = ({
         >
           <i className='fas fa-edit'></i>
         </Link>
-        <i className='fas fa-trash-alt delete-btn settings-item'></i>
+        <i
+          className='fas fa-trash-alt delete-btn settings-item'
+          onClick={handleDelete}
+        ></i>
       </td>
     </tr>
   );

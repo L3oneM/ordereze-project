@@ -51,23 +51,26 @@ const AddForm = ({ addNewPage, history, EditPage, page }) => {
     event.preventDefault();
 
     if (page && EditPage) {
-      console.log(formData);
-      updatePage(page.id, formData).then(() => {
-        history.push('/');
-      });
+      updatePage(formData.id, formData)
+        .then(() => {
+          history.push('/');
+        })
+        .catch(error => console.log(error));
     } else {
       console.log('Submit!', formData);
-      addPage(formData).then(page => {
-        history.push('/');
-        addNewPage(page);
-      });
+      addPage(formData)
+        .then(page => {
+          history.push('/');
+          addNewPage(page);
+        })
+        .catch(error => console.log(error));
     }
   };
 
   return (
     <div className='form-container'>
       <section id='container'>
-        <h2>Add a new Page</h2>
+        <h2>{EditPage ? 'Edit Page' : 'Add a new Page'}</h2>
         <form
           name='main'
           id='main-form'

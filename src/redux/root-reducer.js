@@ -4,7 +4,7 @@ import pagesReducer from './pages/pages.reducer';
 import searchReducer from './search/search.reducer';
 
 const rootReducer = combineReducers({
-  pages: pagesReducer,
+  pagesState: pagesReducer,
   filters: searchReducer
 });
 

@@ -16,9 +16,11 @@ const DataTable = ({
   filters: { search, sortBy, direction, pagesPerPage, currentPage }
 }) => {
   useEffect(() => {
-    getAllPages().then(pages => {
-      return setPages(pages);
-    });
+    getAllPages()
+      .then(pages => {
+        return setPages(pages);
+      })
+      .catch(error => console.log(error));
   }, []);
 
   const indexOfLastPage = currentPage * pagesPerPage;
@@ -52,7 +54,7 @@ const DataTable = ({
 };
 
 const mapStateToProps = state => ({
-  pages: state.pages,
+  pages: state.pagesState.pages,
   filters: state.filters
 });
 

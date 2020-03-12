@@ -19,7 +19,9 @@ const pagesToShow = (pages, search, sortBy, direction) => {
   const sortedPages = pages.sort(compareValues(sortBy, direction));
 
   if (search) {
-    return sortedPages.filter(page => page.title.includes(search));
+    return sortedPages.filter(page =>
+      page.title.toLowerCase().includes(search)
+    );
   } else {
     return sortedPages;
   }
