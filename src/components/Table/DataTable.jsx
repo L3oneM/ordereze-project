@@ -23,7 +23,6 @@ const DataTable = ({
   fetchPagesStartAsync
 }) => {
   useEffect(() => {
-    console.log('I runn!!!');
     fetchPagesStartAsync();
   }, [fetchPagesStartAsync]);
 

@@ -98,7 +98,6 @@ export const addNewPageSuccess = newPage => ({
 });
 
 export const addNewPageStartAsync = newPage => {
-  console.log('Add new Page Async');
   return dispatch => {
     addPage(newPage)
       .then(newPage => {

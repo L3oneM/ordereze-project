@@ -10,6 +10,8 @@ import {
 } from '../../redux/pages/pages.actions';
 import { withRouter } from 'react-router-dom';
 
+import Buttons from './subComponents/Buttons';
+
 import './mainForm.styles.scss';
 
 const AddForm = ({
@@ -63,7 +65,6 @@ const AddForm = ({
     event.preventDefault();
 
     if (page && EditPage) {
-      console.log('Submit update!!!');
       updatePage(formData.id, formData)
         .then(() => {
           history.push('/');
@@ -79,7 +80,6 @@ const AddForm = ({
           }, 3000);
         });
     } else {
-      console.log('Submit add!!!');
       history.push('/');
       addNewPageStartAsync(formData);
     }
@@ -160,23 +160,7 @@ const AddForm = ({
               </section>
             </section>
           </div>
-          <section id='buttons'>
-            <input
-              type='reset'
-              name='reset'
-              id='resetbtn'
-              className='resetbtn'
-              defaultValue='Reset'
-            />
-            <input
-              type='submit'
-              name='submit'
-              id='submitbtn'
-              className='submitbtn'
-              tabIndex={7}
-              defaultValue='Submit this!'
-            />
-          </section>
+          <Buttons />
         </form>
       </section>
     </div>

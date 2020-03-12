@@ -9,7 +9,6 @@ import {
 import './notification.styles.scss';
 
 const Notification = ({ errorMessage, successMessage }) => {
-  console.log(errorMessage, successMessage);
   if (errorMessage === undefined && successMessage === undefined) {
     return null;
   }
