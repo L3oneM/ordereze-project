@@ -15,7 +15,7 @@ const EditPage = ({ location: { pageId } }) => {
   }, []);
 
   return (
-    <div>
+    <div className='main-page'>
       <MainForm EditPage page={page} />
     </div>
   );

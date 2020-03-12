@@ -6,7 +6,7 @@ import './createPage.styles.scss';
 
 const CreatePage = () => {
   return (
-    <div>
+    <div className='main-page'>
       <MainForm />
     </div>
   );

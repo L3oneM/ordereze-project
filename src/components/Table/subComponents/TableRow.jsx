@@ -18,19 +18,30 @@ const TableRow = ({
     });
   };
 
-  const date = moment(publishedOn).format('YYYY MM DD');
+  const date = moment(publishedOn).format('DD MM YYYY');
 
   const pageType = type === 0 ? 'Menu' : type === 1 ? 'Events' : 'Content';
 
   return (
     <tr className='tb-row'>
       <td data-label='title'>{title}</td>
-      <td data-label='description'>{description}</td>
+      <td data-label='description'>
+        <span id='desc-span'>
+          {description ? description : 'No Description'}
+        </span>
+      </td>
       <td data-label='type'>{pageType}</td>
-      <td data-label='Is Active'>{isActive ? 'Yes' : 'No'}</td>
+      <td data-label='Is Active'>
+        {isActive ? (
+          <i className='fas fa-check'></i>
+        ) : (
+          <i className='fas fa-times'></i>
+        )}
+      </td>
       <td data-label='Published On'>{date}</td>
-      <td data-label='Edit'>
+      <td data-label='Settings' onClick={handleDelete}>
         <Link
+          className='settings-item'
           to={{
             pathname: '/editPage',
             pageId: id
@@ -38,9 +49,7 @@ const TableRow = ({
         >
           <i className='fas fa-edit'></i>
         </Link>
-      </td>
-      <td data-label='Delete' onClick={handleDelete}>
-        <i className='fas fa-trash-alt'></i>
+        <i className='fas fa-trash-alt delete-btn settings-item'></i>
       </td>
     </tr>
   );

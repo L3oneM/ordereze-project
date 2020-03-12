@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import TableRow from './subComponents/TableRow';
+import Spinner from '../Spinner/Spinner';
 
 import { setPages } from '../../redux/pages/pages.actions';
 import { getAllPages } from '../../services/pages';
@@ -23,8 +24,8 @@ const DataTable = ({
   const indexOfLastPage = currentPage * pagesPerPage;
   const indexOfFirstPage = indexOfLastPage - pagesPerPage;
 
-  return !pages.length === 0 ? (
-    <h1>Loading...</h1>
+  return pages.length === 0 ? (
+    <Spinner />
   ) : (
     <table className='main-table'>
       <thead>
@@ -34,8 +35,7 @@ const DataTable = ({
           <th scope='col'>Type</th>
           <th scope='col'>Active</th>
           <th scope='col'>Published</th>
-          <th scope='col'>Edit</th>
-          <th scope='col'>Delete</th>
+          <th scope='col'>Settings</th>
         </tr>
       </thead>
       <tbody>

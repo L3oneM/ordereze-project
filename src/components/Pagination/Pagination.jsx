@@ -12,7 +12,8 @@ const Pagination = ({
   pagesPerPage,
   totalPages,
   setCurrentPage,
-  setPagesPerPage
+  setPagesPerPage,
+  currentPage
 }) => {
   const pageNumbers = [];
 
@@ -21,32 +22,36 @@ const Pagination = ({
   }
 
   return (
-    <nav>
+    <nav className='pagination-cnt'>
+      <ul className='pagination'>
+        {pageNumbers.map(number => (
+          <li
+            key={number}
+            className={`page-item ${currentPage === number ? 'active' : null}`}
+            onClick={() => setCurrentPage(number)}
+          >
+            <span className='page-link'>{number}</span>
+          </li>
+        ))}
+      </ul>
       <select
         name='pagesPerPage'
         defaultValue='10'
         onChange={event => setPagesPerPage(Number(event.target.value))}
+        className='page-slctr'
       >
         <option value='5'>5</option>
         <option value='10'>10</option>
         <option value='25'>25</option>
       </select>
-      <ul className='pagination'>
-        {pageNumbers.map(number => (
-          <li key={number} className='page-item'>
-            <span onClick={() => setCurrentPage(number)} className='page-link'>
-              {number}
-            </span>
-          </li>
-        ))}
-      </ul>
     </nav>
   );
 };
 
 const mapStateToProps = state => ({
   totalPages: state.pages.length,
-  pagesPerPage: state.filters.pagesPerPage
+  pagesPerPage: state.filters.pagesPerPage,
+  currentPage: state.filters.currentPage
 });
 
 const mapDispatchToProps = dispatch => ({

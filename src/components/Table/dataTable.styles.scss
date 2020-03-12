@@ -15,6 +15,7 @@
     background-color: #f8f8f8;
     border: 1px solid #ddd;
     padding: 0.35em;
+    min-height: 50px;
   }
 
   th,
@@ -30,13 +31,12 @@
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
   .main-table {
     border: 0;
-    caption {
-      font-size: 1.3em;
-    }
-
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
     thead {
       border: none;
       clip: rect(0 0 0 0);

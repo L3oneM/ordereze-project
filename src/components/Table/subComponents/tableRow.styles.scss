@@ -2,16 +2,29 @@ tr {
   background-color: #f8f8f8;
   border: 1px solid #ddd;
   padding: 0.35em;
+  min-height: 50px;
 
   td {
     word-wrap: break-word;
+    min-height: 36px;
+
     i {
       cursor: pointer;
+      color: #212529;
+    }
+
+    .delete-btn {
+      color: #d43346;
+    }
+
+    .settings-item {
+      margin: 0 5px;
+      padding: 4px;
     }
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
   .main-table {
     tr {
       border-bottom: 3px solid #ddd;
@@ -23,6 +36,11 @@ tr {
         display: block;
         font-size: 0.8em;
         text-align: right;
+        overflow-wrap: break-word;
+
+        span {
+          max-width: 250px;
+        }
       }
 
       td::before {
@@ -30,6 +48,7 @@ tr {
         float: left;
         font-weight: bold;
         text-transform: uppercase;
+        margin-right: 5rem;
       }
 
       td:last-child {

@@ -1,0 +1,16 @@
+.select-Field {
+  background: #fff;
+  width: 200px;
+  height: 100%;
+  padding: 12px;
+  line-height: 1;
+  border: solid 1px #fff;
+  border-bottom: solid 2px #000;
+}
+
+@media only screen and (max-width: 500px) {
+  .select-Field {
+    margin: 1rem 0;
+    width: 250px;
+  }
+}

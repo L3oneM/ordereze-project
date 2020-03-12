@@ -1,4 +1,51 @@
 .main-page {
-  width: 80vw;
+  width: calc(80vw - 64px);
   margin: 2rem auto;
+
+  .pages-filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    .searchAndSort {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 500px;
+    }
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .main-page {
+    width: 90vw;
+
+    .pages-filters {
+      display: block;
+
+      .searchAndSort {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .main-page {
+    width: 90vw;
+
+    .pages-filters {
+      display: flex;
+      flex-direction: column;
+
+      .searchAndSort {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
 }

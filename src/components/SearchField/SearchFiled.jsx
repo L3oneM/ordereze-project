@@ -12,13 +12,16 @@ const SearchFiled = ({ searchByTitle }) => {
   };
 
   return (
-    <input
-      type='text'
-      name='search'
-      placeholder='Search by Title...'
-      className='search-input'
-      onChange={handleSearchValueChange}
-    />
+    <div className='search-container'>
+      <input
+        type='text'
+        name='search'
+        placeholder='Search by Title...'
+        className='search-input'
+        onChange={handleSearchValueChange}
+      />
+      <i className='fas fa-search'></i>
+    </div>
   );
 };
 
