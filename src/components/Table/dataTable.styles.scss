@@ -6,6 +6,10 @@
   width: 100%;
   table-layout: fixed;
 
+  thead {
+    border-bottom: solid 2px #000;
+  }
+
   .tb-caption {
     font-size: 1.5em;
     margin: 0.5em 0 0.75em;

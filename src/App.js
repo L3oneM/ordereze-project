@@ -6,12 +6,14 @@ import MainPage from './pages/MainPage/MainPage';
 import CreatePage from './pages/CreatePage/CreatePage';
 import EditPage from './pages/EditPage/EditPage';
 import SideBar from './components/SideBar/SideBar';
+import Notification from './components/Notification/Notification';
 
 import './App.scss';
 
 const App = () => {
   return (
     <div className='app-container'>
+      <Notification />
       <Header />
       <div className='main-content'>
         <SideBar />

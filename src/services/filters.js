@@ -17,10 +17,9 @@ const compareValues = (category, direction) => {
 
 const pagesToShow = (pages, search, sortBy, direction) => {
   const sortedPages = pages.sort(compareValues(sortBy, direction));
-
   if (search) {
     return sortedPages.filter(page =>
-      page.title.toLowerCase().includes(search)
+      page.title.toLowerCase().includes(search.toLowerCase())
     );
   } else {
     return sortedPages;

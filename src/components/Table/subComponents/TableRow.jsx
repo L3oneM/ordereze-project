@@ -3,21 +3,18 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
-import { deletePage } from '../../../redux/pages/pages.actions';
-import { removePage } from '../../../services/pages';
+import { deletePageStartAsync } from '../../../redux/pages/pages.actions';
 
 import './tableRow.styles.scss';
 
 const TableRow = ({
   page: { id, title, description, type, isActive, publishedOn },
-  deletePage
+  deletePageStartAsync
 }) => {
   const handleDelete = () => {
-    removePage(id)
-      .then(page => {
-        deletePage(page.id);
-      })
-      .catch(error => console.log(error));
+    if (window.confirm('Delete this Page?')) {
+      deletePageStartAsync(id);
+    }
   };
 
   const date = moment(publishedOn).format('DD MM YYYY');
@@ -61,7 +58,7 @@ const TableRow = ({
 };
 
 const mapDispatchToProps = dispatch => ({
-  deletePage: pageId => dispatch(deletePage(pageId))
+  deletePageStartAsync: pageId => dispatch(deletePageStartAsync(pageId))
 });
 
 export default connect(null, mapDispatchToProps)(TableRow);

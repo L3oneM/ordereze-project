@@ -4,29 +4,33 @@ import { connect } from 'react-redux';
 import TableRow from './subComponents/TableRow';
 import Spinner from '../Spinner/Spinner';
 
-import { setPages } from '../../redux/pages/pages.actions';
-import { getAllPages } from '../../services/pages';
+import { fetchPagesStartAsync } from '../../redux/pages/pages.actions';
+
 import { pagesToShowWithPagination, pagesToShow } from '../../services/filters';
+
+import {
+  selectPages,
+  selectIsPagesFetching
+} from '../../redux/pages/pages.selectors';
+import { selectAllFilters } from '../../redux/search/filters.selectors';
 
 import './dataTable.styles.scss';
 
 const DataTable = ({
   pages,
-  setPages,
-  filters: { search, sortBy, direction, pagesPerPage, currentPage }
+  arePagesFetching,
+  filters: { search, sortBy, direction, pagesPerPage, currentPage },
+  fetchPagesStartAsync
 }) => {
   useEffect(() => {
-    getAllPages()
-      .then(pages => {
-        return setPages(pages);
-      })
-      .catch(error => console.log(error));
-  }, []);
+    console.log('I runn!!!');
+    fetchPagesStartAsync();
+  }, [fetchPagesStartAsync]);
 
   const indexOfLastPage = currentPage * pagesPerPage;
   const indexOfFirstPage = indexOfLastPage - pagesPerPage;
 
-  return pages.length === 0 ? (
+  return arePagesFetching ? (
     <Spinner />
   ) : (
     <table className='main-table'>
@@ -54,12 +58,13 @@ const DataTable = ({
 };
 
 const mapStateToProps = state => ({
-  pages: state.pagesState.pages,
-  filters: state.filters
+  pages: selectPages(state),
+  filters: selectAllFilters(state),
+  arePagesFetching: selectIsPagesFetching(state)
 });
 
 const mapDispatchToProps = dispatch => ({
-  setPages: pages => dispatch(setPages(pages))
+  fetchPagesStartAsync: () => dispatch(fetchPagesStartAsync())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataTable);

@@ -1,6 +1,6 @@
 .main-page {
   width: calc(80vw - 64px);
-  margin: 2rem auto;
+  margin: 4rem auto 0;
 
   .pages-filters {
     display: flex;
@@ -20,6 +20,7 @@
 @media only screen and (max-width: 800px) {
   .main-page {
     width: 90vw;
+    margin: 3rem auto 0;
 
     .pages-filters {
       display: block;
@@ -34,6 +35,7 @@
 @media only screen and (max-width: 500px) {
   .main-page {
     width: 90vw;
+    margin: 2rem auto 0;
 
     .pages-filters {
       display: flex;

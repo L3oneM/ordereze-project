@@ -6,6 +6,12 @@ import {
   setPagesPerPage
 } from '../../redux/search/search.actions';
 
+import { totalPages } from '../../redux/pages/pages.selectors';
+import {
+  selectCurrentPage,
+  selectPagesPerPage
+} from '../../redux/search/filters.selectors';
+
 import './pagination.styles.scss';
 
 const Pagination = ({
@@ -49,9 +55,9 @@ const Pagination = ({
 };
 
 const mapStateToProps = state => ({
-  totalPages: state.pagesState.pages.length,
-  pagesPerPage: state.filters.pagesPerPage,
-  currentPage: state.filters.currentPage
+  totalPages: totalPages(state),
+  pagesPerPage: selectPagesPerPage(state),
+  currentPage: selectCurrentPage(state)
 });
 
 const mapDispatchToProps = dispatch => ({

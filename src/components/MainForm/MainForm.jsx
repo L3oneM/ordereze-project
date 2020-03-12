@@ -1,13 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { addPage, updatePage } from '../../services/pages';
-import { addNewPage } from '../../redux/pages/pages.actions';
+import { updatePage } from '../../services/pages';
+import {
+  addNewPageStartAsync,
+  setErrorMessage,
+  clearMessage,
+  setSuccessMessage
+} from '../../redux/pages/pages.actions';
 import { withRouter } from 'react-router-dom';
 
 import './mainForm.styles.scss';
 
-const AddForm = ({ addNewPage, history, EditPage, page }) => {
+const AddForm = ({
+  history,
+  EditPage,
+  page,
+  addNewPageStartAsync,
+  clearMessage,
+  setSuccessMessage
+}) => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -51,19 +63,25 @@ const AddForm = ({ addNewPage, history, EditPage, page }) => {
     event.preventDefault();
 
     if (page && EditPage) {
+      console.log('Submit update!!!');
       updatePage(formData.id, formData)
         .then(() => {
           history.push('/');
+          setSuccessMessage('Your Page has updated correctly!!!');
+          setTimeout(() => {
+            clearMessage();
+          }, 3000);
         })
-        .catch(error => console.log(error));
+        .catch(error => {
+          setErrorMessage(error.message);
+          setTimeout(() => {
+            clearMessage();
+          }, 3000);
+        });
     } else {
-      console.log('Submit!', formData);
-      addPage(formData)
-        .then(page => {
-          history.push('/');
-          addNewPage(page);
-        })
-        .catch(error => console.log(error));
+      console.log('Submit add!!!');
+      history.push('/');
+      addNewPageStartAsync(formData);
     }
   };
 
@@ -94,9 +112,8 @@ const AddForm = ({ addNewPage, history, EditPage, page }) => {
               <textarea
                 name='description'
                 id='description'
-                placeholder={
-                  EditPage ? page.description : 'Enter a description...'
-                }
+                value={formData.description}
+                placeholder='Enter a description...'
                 tabIndex={5}
                 className='txtblock'
                 onChange={handleChange}
@@ -167,7 +184,10 @@ const AddForm = ({ addNewPage, history, EditPage, page }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  addNewPage: newPage => dispatch(addNewPage(newPage))
+  addNewPageStartAsync: newPage => dispatch(addNewPageStartAsync(newPage)),
+  setErrorMessage: errorMessage => dispatch(setErrorMessage(errorMessage)),
+  clearMessage: () => dispatch(clearMessage()),
+  setSuccessMessage: message => dispatch(setSuccessMessage(message))
 });
 
 export default connect(null, mapDispatchToProps)(withRouter(AddForm));

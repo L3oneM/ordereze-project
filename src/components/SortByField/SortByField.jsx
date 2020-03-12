@@ -7,7 +7,6 @@ import './sortByField.styles.scss';
 
 const SortByField = ({ sortPagesBy }) => {
   const handleChange = event => {
-    console.log(event.target.value);
     const credentials = event.target.value.split(':');
 
     sortPagesBy(credentials[0], credentials[1]);

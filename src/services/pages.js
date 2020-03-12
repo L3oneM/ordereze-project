@@ -24,7 +24,6 @@ const addPage = async newPage => {
 };
 
 const updatePage = async (pageId, updatedPage) => {
-  console.log('2', updatedPage);
   const response = await axios.put(`${baseUrl}/${pageId}`, updatedPage);
 
   return response.data;

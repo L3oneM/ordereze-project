@@ -3,15 +3,21 @@ import { connect } from 'react-redux';
 
 import MainForm from '../../components/MainForm/MainForm';
 
-import { getPage } from '../../services/pages';
-import { setOnePage } from '../../redux/pages/pages.actions';
+import { fetchSinglePageStartAsync } from '../../redux/pages/pages.actions';
 
-import './editPage.styles.scss';
+import {
+  selectSinglePage,
+  selectIsPagesFetching
+} from '../../redux/pages/pages.selectors';
 
-const EditPage = ({ location: { pageId }, setOnePage, page }) => {
+const EditPage = ({
+  location: { pageId },
+  page,
+  fetchSinglePageStartAsync
+}) => {
   useEffect(() => {
-    getPage(pageId).then(page => setOnePage(page));
-  }, []);
+    fetchSinglePageStartAsync(pageId);
+  }, [fetchSinglePageStartAsync, pageId]);
 
   return (
     <div className='main-page'>
@@ -21,11 +27,12 @@ const EditPage = ({ location: { pageId }, setOnePage, page }) => {
 };
 
 const mapStateToProps = state => ({
-  page: state.pagesState.page
+  page: selectSinglePage(state),
+  isFetching: selectIsPagesFetching(state)
 });
 
 const mapDispatchToProps = dispatch => ({
-  setOnePage: page => dispatch(setOnePage(page))
+  fetchSinglePageStartAsync: page => dispatch(fetchSinglePageStartAsync(page))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditPage);

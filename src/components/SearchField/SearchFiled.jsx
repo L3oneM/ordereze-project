@@ -1,13 +1,16 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { searchByTitle } from '../../redux/search/search.actions';
+import {
+  searchByTitle,
+  setCurrentPage
+} from '../../redux/search/search.actions';
 
 import './searchFiled.styles.scss';
 
-const SearchFiled = ({ searchByTitle }) => {
+const SearchFiled = ({ searchByTitle, setCurrentPage }) => {
   const handleSearchValueChange = event => {
-    console.log(event.target.value);
+    setCurrentPage(1);
     searchByTitle(event.target.value);
   };
 
@@ -26,7 +29,8 @@ const SearchFiled = ({ searchByTitle }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  searchByTitle: value => dispatch(searchByTitle(value))
+  searchByTitle: value => dispatch(searchByTitle(value)),
+  setCurrentPage: number => dispatch(setCurrentPage(number))
 });
 
 export default connect(null, mapDispatchToProps)(SearchFiled);
